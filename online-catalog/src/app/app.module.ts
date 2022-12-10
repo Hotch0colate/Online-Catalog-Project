@@ -1,22 +1,40 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-// import { NavbarComponent } from './layouts/navbar/navbar.component';
 import { AppRoutingModule } from './app-routing.module';
-import { FooterComponent } from './layouts/footer/footer.component';
+import { ErrorInterceptor, SendInterceptor } from 'src/app/interceptors';
+import { SignupComponent } from './pages/signup/signup.component';
+import { UserModule } from './workspaces/user/user.module';
+import { SigninComponent } from './pages/signin/signin.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { CheckoutComponent } from './pages/checkout/checkout.component';
+
+
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    FooterComponent,
+    SignupComponent,
+    SigninComponent,
+    CheckoutComponent,
+    
     // NavbarComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    UserModule,
+    HttpClientModule,
+    ReactiveFormsModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: SendInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
+  ],
+  bootstrap: [AppComponent],
 })
 export class AppModule { }
