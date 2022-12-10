@@ -33,14 +33,14 @@ router.post('/sign-in', (req, res) => {
                 if (results?.length !== 0) {
                     const token = uuidv4();
                     connection.query("insert into access values(?, ?)", [token, results[0].id]);
-                    res.send(token);
+                    res.send({token:token});
                 } else {
-                    res.send('Incorrect Username and/or Password');
+                    res.status(401).send('Incorrect Username and/or Password');
                 }
                 res.end();
             });
         } else {
-            res.send('Please enter Username and password');
+            res.status(401).send('Please enter Username and password');
             res.end();
         }
     } catch {
