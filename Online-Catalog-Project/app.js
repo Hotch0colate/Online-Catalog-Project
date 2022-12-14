@@ -8,11 +8,17 @@ const cors = require('cors');
 
 app.use(cors({     origin: '*' }));
 app.use(express.json());
-app.use('/admin',require('./router/admin'))
-app.use('/auth',require('./router/register'));
-app.use('/product',require('./router/product'));
+app.use('/api/admin',require('./router/admin'))
+app.use('/api/auth',require('./router/register'));
+app.use('/api/product',require('./router/product'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+// Static folder
+app.use(express.static(__dirname + "/public/"));
+
+// Handle SPA
+app.get(/.*/, (req, res) => res.sendFile(__dirname + "/public/index.html"));
 
 
 //test

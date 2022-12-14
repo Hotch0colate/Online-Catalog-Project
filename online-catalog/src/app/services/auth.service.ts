@@ -9,7 +9,9 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
-  url = 'http://localhost:4000/';
+  // url = 'http://localhost:4000/';
+  url = 'api/'
+
   token: BehaviorSubject<string>;
 
   constructor(private httpClient: HttpClient) {

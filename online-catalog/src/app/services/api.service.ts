@@ -9,7 +9,8 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class ApiService {
-  url = 'http://localhost:4000/'
+  // url = 'http://localhost:4000/'
+  url = 'api/'
   cart: BehaviorSubject<CartArray>;
   constructor(private httpClient: HttpClient) { 
     this.cart = new BehaviorSubject<CartArray>({data:[]})
